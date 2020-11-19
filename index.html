@@ -1,57 +1,57 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang = en>
     <head>
-        <script src="https://cdn.jsdelivr.net/npm/vega@5.17.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.17.0"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.12.2"></script>
+        <script src='https://cdn.jsdelivr.net/npm/vega@5.17.0'></script>
+        <script src='https://cdn.jsdelivr.net/npm/vega-lite@4.17.0'></script>
+        <script src='https://cdn.jsdelivr.net/npm/vega-embed@6.12.2'></script>
     </head>
     <body>
         <h1> Visualization Lab 9 </h1>
         <h2> Erin Corcoran </h2>
-        <div id = "#vis"></div>
-        <script>
-                    {       
-                    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-                    "data" : {
-                        "url": "https://api.covidtracking.com/v1/states/current.csv"
+        <div id = 'vis'></div>
+        <script type = "text/javascript">
+                    var v1Spec = {       
+                    $schema : 'https://vega.github.io/schema/vega-lite/v4.json',
+                    data : {
+                        url: 'https://api.covidtracking.com/v1/states/current.csv'
                     },
-                    "vconcat":  [
+                    vconcat:  [
                         {
-                        "width": 1000,
-                        "mark":  {"type": "point"},
-                        "encoding": {
-                        "x": {"field": "positive", "type": "quantitative"},
-                        "y": {"field": "death", "type": "quantitative"},
-                        "tooltip": {"field": "state", "type": "nominal"},
-                        "color": {
-                            "condition": {
-                            "selection": "brush",
-                            "field": "dataQualityGrade", "type": "nominal"
+                        width: 1000,
+                        mark:  {type: 'point'},
+                        encoding: {
+                        x: {field: 'positive', type: 'quantitative'},
+                        y: {field: 'death', type: 'quantitative'},
+                        tooltip: {field: 'state', type: 'nominal'},
+                        color: {
+                            condition: {
+                            selection: 'brush',
+                            field: 'dataQualityGrade', type: 'nominal'
                             },    
-                            "value": "gray"}
+                            value: 'gray'}
                         }, 
-                    "selection": {
-                    "brush":{"type":"interval"}  }
+                    selection: {
+                    brush:{type:'interval'}  }
                         },
-                        {"repeat": ["hospitalizedCumulative", "recovered"],
-                        "columns": 1,
-                        "spec":{
-                        "mark": "bar",
-                        "encoding": {
-                            "x": {"field": "state", "type": "nominal"},
-                            "y":{
-                                "field": {"repeat":"repeat"},
-                                "type":"quantitative"
+                        {repeat: ['hospitalizedCumulative', 'recovered'],
+                        columns: 1,
+                        spec:{
+                        mark: 'bar',
+                        encoding: {
+                            x: {field: 'state', type: 'nominal'},
+                            y:{
+                                field: {repeat:'repeat'},
+                                type:'quantitative'
                                 }
                         },
-                        "transform": [{
-                        "filter":{"selection":"brush"}
+                        transform: [{
+                        filter:{selection:'brush'}
                         }]
                         }
                     }
                     ]
-                    }
-        vegaEmbed('#vis', vlSpec);
+                    };
+        vegaEmbed('#vis', v1Spec);
         </script>
     </body>
 </html>
